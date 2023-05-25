@@ -18,7 +18,7 @@ export const App = () => {
 
   useEffect(() => {
     // если данные для запроса не ввели(пустая строка), то выходим
-    if (query === '') {
+    if (!query) {
       return;
     }
     // иначе если данные в query изменились или изменилась страница page, то делаем запрос
@@ -83,11 +83,6 @@ export const App = () => {
   return (
     <>
       <Searchbar onSubmit={getQuery} />
-      {/* если картинки загружаются выводим сообщение о загрузке */}
-      {isLoading && <Loader />}
-
-      {/*  Если будет ошибка - выводим сообщение  */}
-      {error && <p>{error}</p>}
 
       {/* Если данные в массиве с изображениями есть - рендерим */}
       {imgData.length > 0 && (
@@ -99,6 +94,12 @@ export const App = () => {
       {!isLoading && imgData.length !== totalImages && (
         <Button onClick={btnLoadMore} />
       )}
+
+      {/* если картинки загружаются выводим сообщение о загрузке */}
+      {isLoading && <Loader />}
+
+      {/*  Если будет ошибка - выводим сообщение  */}
+      {error && <p>{error}</p>}
 
       {isModal && <Modal active={active} onClick={toggleModal} />}
     </>
